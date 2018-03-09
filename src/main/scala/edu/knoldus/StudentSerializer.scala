@@ -1,25 +1,37 @@
 package edu.knoldus
 
+import java.io.{ByteArrayOutputStream, ObjectOutputStream}
+
+import org.apache.kafka.common.serialization.Serializer
+
 /**
  * Created by pallavi on 9/3/18.
  */
 
-class StudentSerializer extends Nothing {
-  def configure(map: Nothing, b: Boolean): Unit = {
+class StudentSerializer extends Serializer[Student]{
+
+  override def configure(configs: java.util.Map[String,_],isKey: Boolean):Unit = {
+
   }
 
-  def serialize(arg0: String, arg1: Nothing): Array[Byte] = {
-    var retVal = null
-    val objectMapper = new Nothing
-    try
-      retVal = objectMapper.writeValueAsString(arg1).getBytes
-    catch {
-      case e: Exception =>
-        e.printStackTrace()
+
+  override def serialize(topic:String, data:Student):Array[Byte] = {
+    try {
+      val byteOut = new ByteArrayOutputStream()
+      val objOut = new ObjectOutputStream(byteOut)
+      objOut.writeObject(data)
+      objOut.close()
+      byteOut.close()
+      byteOut.toByteArray
     }
-    retVal
+    catch {
+      case ex:Exception => throw new Exception(ex.getMessage)
+    }
   }
 
-  def close(): Unit = {
+  override def close():Unit = {
+
   }
+
+
 }

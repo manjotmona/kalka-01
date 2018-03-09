@@ -2,7 +2,10 @@ package edu.knoldus
 
 import java.util.Properties
 
+import scala.collection.JavaConverters._
+
 import org.apache.kafka.clients.consumer.KafkaConsumer
+
 
 /**
  * Created by pallavi on 9/3/18.
@@ -17,7 +20,7 @@ object customConsumer extends App {
   props.put("auto.offset.reset","earliest")
   props.put("bootstrap.servers", "localhost:9092")
   props.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
-  props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer")
+  props.put("value.deserializer", "edu.knoldus.StudentDeserializer")
   props.put("group.id", "myGrp")
 
 

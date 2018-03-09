@@ -14,7 +14,7 @@ object customProducer  extends App{
   //val producer =
   props.put("bootstrap.servers", "localhost:9092")
   props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
-  props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
+  props.put("value.serializer", "edu.knoldus.StudentSerializer")
 
   val sendStudent = Student(1,"mona")
   val producer = new KafkaProducer[String,Student](props)
